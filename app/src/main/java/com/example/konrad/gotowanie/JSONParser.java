@@ -39,7 +39,6 @@ public class JSONParser {
 
         // Making HTTP request
         try {
-
             // check for request method
             if(method == "POST"){
                 // request method is POST
@@ -55,8 +54,10 @@ public class JSONParser {
             }else if(method == "GET"){
                 // request method is GET
                 DefaultHttpClient httpClient = new DefaultHttpClient();
-                String paramString = URLEncodedUtils.format(params, "utf-8");
-                url += "?" + paramString;
+                if(params!=null) { //jeśli nie ma parametrów to musi być ten warunek bo inaczej nie chce isc dalej
+                    String paramString = URLEncodedUtils.format(params, "utf-8");
+                    url += "?" + paramString;
+                }
                 HttpGet httpGet = new HttpGet(url);
 
                 HttpResponse httpResponse = httpClient.execute(httpGet);

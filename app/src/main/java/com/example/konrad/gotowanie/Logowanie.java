@@ -15,8 +15,8 @@ public class Logowanie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logowanie);
 
-        loginField = (EditText)findViewById(R.id.login);
-        passwordField = (EditText)findViewById(R.id.password);
+        loginField = findViewById(R.id.login);
+        passwordField = findViewById(R.id.password);
 
     }
 

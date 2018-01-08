@@ -16,4 +16,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_myplaces" />
+
+    <ImageButton
+        android:id="@+id/ingredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:onClick="openIngredients"
+        app:layout_constraintStart_toEndOf="@+id/logging"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
+
 </android.support.constraint.ConstraintLayout>

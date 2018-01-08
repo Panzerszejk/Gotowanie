@@ -30,8 +30,6 @@ public class SigninActivity extends AsyncTask<String,Integer,String> {
 
     public SigninActivity(Context context) {
         this.context = context;
-        this.statusField = statusField;
-        this.roleField = roleField;
     }
 
     protected void onPreExecute(){
