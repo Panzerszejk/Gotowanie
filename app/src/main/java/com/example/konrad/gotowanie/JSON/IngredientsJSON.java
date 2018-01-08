@@ -1,4 +1,4 @@
-package com.example.konrad.gotowanie;
+package com.example.konrad.gotowanie.JSON;
 
 /**
  * Created by Konrad on 2018-01-07.
@@ -7,18 +7,14 @@ package com.example.konrad.gotowanie;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.TextView;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
-public class ListIngredients extends AsyncTask<String,Integer,String> {
+public class IngredientsJSON extends AsyncTask<String,Integer,String> {
     private Context context;
 
     JSONArray products = null;
@@ -27,7 +23,7 @@ public class ListIngredients extends AsyncTask<String,Integer,String> {
     private static final String TAG_PRODUCTS= "products";
     private static final String TAG_NAME= "name";
 
-    public ListIngredients(Context context,ArrayList<String> prodArray) {
+    public IngredientsJSON(Context context, ArrayList<String> prodArray) {
         this.context = context;
         this.prodArray=prodArray;
     }

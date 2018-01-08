@@ -1,12 +1,15 @@
-package com.example.konrad.gotowanie;
+package com.example.konrad.gotowanie.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
-public class Logowanie extends AppCompatActivity {
+import com.example.konrad.gotowanie.JSON.LoggingJSON;
+import com.example.konrad.gotowanie.R;
+
+public class Logging extends AppCompatActivity {
 
     private EditText loginField,passwordField;
 
@@ -23,8 +26,13 @@ public class Logowanie extends AppCompatActivity {
     public void login(View view){
         String username = loginField.getText().toString();
         String password = passwordField.getText().toString();
-        new SigninActivity(this).execute(username,password);
+        new LoggingJSON(this).execute(username,password);
 
+    }
+
+    public void rejestracja(View view){
+        Intent intent = new Intent(getApplicationContext(), Register.class);
+        startActivity(intent);
     }
 }
 

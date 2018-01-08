@@ -1,7 +1,6 @@
-package com.example.konrad.gotowanie;
+package com.example.konrad.gotowanie.Activities;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +9,10 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 
-public class Skladniki extends AppCompatActivity {
+import com.example.konrad.gotowanie.JSON.IngredientsJSON;
+import com.example.konrad.gotowanie.R;
+
+public class Ingredients extends AppCompatActivity {
     private ListView list ;
     private ArrayAdapter<String> adapter ;
     private ArrayList<String> prodArray;
@@ -26,7 +28,7 @@ public class Skladniki extends AppCompatActivity {
 
         prodArray = new ArrayList<>();
 
-        new ListIngredients(this,prodArray).execute();
+        new IngredientsJSON(this,prodArray).execute();
     }
 
     public void listIngredients(View view){

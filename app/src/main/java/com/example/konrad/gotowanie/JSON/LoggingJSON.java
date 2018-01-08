@@ -1,4 +1,4 @@
-package com.example.konrad.gotowanie;
+package com.example.konrad.gotowanie.JSON;
 
 /**
  * Created by Konrad on 2018-01-07.
@@ -18,7 +18,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 
 
-public class SigninActivity extends AsyncTask<String,Integer,String> {
+public class LoggingJSON extends AsyncTask<String,Integer,String> {
     private TextView statusField,roleField;
     private Context context;
 
@@ -28,7 +28,7 @@ public class SigninActivity extends AsyncTask<String,Integer,String> {
     private static final String TAG_LOGGED = "logged";
 
 
-    public SigninActivity(Context context) {
+    public LoggingJSON(Context context) {
         this.context = context;
     }
 

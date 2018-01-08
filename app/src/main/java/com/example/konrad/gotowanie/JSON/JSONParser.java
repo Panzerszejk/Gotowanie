@@ -1,4 +1,4 @@
-package com.example.konrad.gotowanie;
+package com.example.konrad.gotowanie.JSON;
 
 import android.util.Log;
 

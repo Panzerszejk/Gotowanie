@@ -1,10 +1,12 @@
-package com.example.konrad.gotowanie;
+package com.example.konrad.gotowanie.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+
+import com.example.konrad.gotowanie.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,12 +23,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openIngredients(View view){
-        Intent intent = new Intent(getApplicationContext(), Skladniki.class);
+        Intent intent = new Intent(getApplicationContext(), Ingredients.class);
         startActivity(intent);
     }
 
     public void openLogin(View view){
-        Intent intent = new Intent(getApplicationContext(), Logowanie.class);
+        Intent intent = new Intent(getApplicationContext(), Logging.class);
         startActivity(intent);
     }
 }
