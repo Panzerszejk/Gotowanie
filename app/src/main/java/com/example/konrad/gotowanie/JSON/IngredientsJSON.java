@@ -4,9 +4,14 @@ package com.example.konrad.gotowanie.JSON;
  * Created by Konrad on 2018-01-07.
  */
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.example.konrad.gotowanie.Activities.IngredientsArrayAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,16 +21,19 @@ import java.util.ArrayList;
 
 public class IngredientsJSON extends AsyncTask<String,Integer,String> {
     private Context context;
+    private ListView list;
 
     JSONArray products = null;
-    ArrayList<String> prodArray;
+    private ArrayList<String> prodArray;
+
 
     private static final String TAG_PRODUCTS= "products";
     private static final String TAG_NAME= "name";
 
-    public IngredientsJSON(Context context, ArrayList<String> prodArray) {
+    public IngredientsJSON(Context context, ArrayList<String> prodArray,ListView list) {
         this.context = context;
         this.prodArray=prodArray;
+        this.list=list;
     }
 
     protected void onPreExecute(){
@@ -34,7 +42,7 @@ public class IngredientsJSON extends AsyncTask<String,Integer,String> {
     @Override
     protected String doInBackground(String... arg0) {
         try{
-            JSONParser jParser = new JSONParser();
+            ParserJSON jParser = new ParserJSON();
             String link = "http://46.242.178.181/gotowanie/list.php";
             JSONObject json = jParser.makeHttpRequest(link, "GET", null);
             Log.d("Otrzymana tablica JSON:", json.toString());
@@ -53,11 +61,11 @@ public class IngredientsJSON extends AsyncTask<String,Integer,String> {
         }
     }
 
-    /*
     @Override
     protected void onPostExecute(String result){
-        this.statusField.setText("Login Successful");
-        this.roleField.setText(result);
-    }*/
+        ArrayAdapter<String> adapter ;
+        adapter = new IngredientsArrayAdapter((Activity)context,prodArray);
+        list.setAdapter(adapter);
+    }
 
 }

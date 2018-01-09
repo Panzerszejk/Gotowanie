@@ -11,7 +11,6 @@ import com.example.konrad.gotowanie.R;
 public class Register extends AppCompatActivity {
 
     private EditText loginField,passwordField,confirmField,emailField;
-    //private Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +21,6 @@ public class Register extends AppCompatActivity {
         passwordField = findViewById(R.id.Haslo);
         emailField = findViewById(R.id.Email);
         confirmField = findViewById(R.id.Confirm);
-
-        //registerButton = findViewById(R.id.Zarejestruj);
 
     }
 

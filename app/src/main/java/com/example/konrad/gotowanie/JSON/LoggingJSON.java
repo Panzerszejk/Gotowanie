@@ -43,7 +43,7 @@ public class LoggingJSON extends AsyncTask<String,Integer,String> {
             String username = arg0[0];
             String password = arg0[1];
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            JSONParser jParser = new JSONParser();
+            ParserJSON jParser = new ParserJSON();
             String link = "http://46.242.178.181/gotowanie/logging.php";
             params.add(new BasicNameValuePair("login", username));
             params.add(new BasicNameValuePair("password", password));

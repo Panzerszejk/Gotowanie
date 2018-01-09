@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
@@ -14,8 +15,8 @@ import com.example.konrad.gotowanie.R;
 
 public class Ingredients extends AppCompatActivity {
     private ListView list ;
-    private ArrayAdapter<String> adapter ;
     private ArrayList<String> prodArray;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +29,12 @@ public class Ingredients extends AppCompatActivity {
 
         prodArray = new ArrayList<>();
 
-        new IngredientsJSON(this,prodArray).execute();
+        new IngredientsJSON(this,prodArray,list).execute();
     }
 
     public void listIngredients(View view){
-        adapter = new ArrayAdapter<String>(this, R.layout.element, prodArray);
-        list.setAdapter(adapter);
+        Log.d("Dupa",prodArray.get(0));
+
     }
 
 }
