@@ -1,6 +1,7 @@
 package com.example.konrad.gotowanie.Activities;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -18,8 +19,11 @@ import com.example.konrad.gotowanie.R;
 
 public class Ingredients extends AppCompatActivity {
     private ListView list ;
-    private ArrayList<String> prodArray;
-    private String[] ar;
+    private ArrayList<ArrayList<String>> productsArray;
+    private SharedPreferences ingPrefName;
+    private SharedPreferences ingPrefCount;
+    private static final String PREF_NAME = "prefName";
+    private static final String PREF_COUNT = "prefCount";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,25 +32,39 @@ public class Ingredients extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        list = (ListView) findViewById(R.id.lista);
+        list = findViewById(R.id.lista);
 
-        prodArray = new ArrayList<>();
-        ar=new String[14];
-        /*ar = new ArrayList<>();
+        productsArray = new ArrayList<>();
+        productsArray.add(new ArrayList<String>());
+        productsArray.add(new ArrayList<String>());
 
-        for(int i=0;i<14;i++) {
-            ar[i]
-        }*/
+        getSharedPrefValues();
 
-        new IngredientsJSON(this,prodArray,list).execute();
-    }
-
-    public void listIngredients(View view){
-        ArrayAdapter<String> adapter ;
-        adapter = new IngredientsArrayAdapter(this,ar);
+        ArrayAdapter<String> adapter;
+        adapter = new IngredientsArrayAdapter(this,productsArray);
         list.setAdapter(adapter);
     }
 
+    public void listIngredients(View view){
+        new IngredientsJSON(this,productsArray, list).execute("1"); //zamiast 1 to cookie z sesji
+    }
+
+    public void getSharedPrefValues(){
+        ingPrefName = this.getSharedPreferences(PREF_NAME , Activity.MODE_PRIVATE);
+        ingPrefCount = this.getSharedPreferences(PREF_COUNT , Activity.MODE_PRIVATE);
+
+        Map<String,?> nameMap = ingPrefName.getAll();
+        Map<String,?> countMap = ingPrefCount.getAll();
+
+        for(int i=0;i<nameMap.size();i++){
+            String textFromPreferences = (String)nameMap.get(Integer.toString(i));
+            String countFromPreferences = (String)countMap.get(Integer.toString(i));
+
+            productsArray.get(0).add(textFromPreferences);
+            productsArray.get(1).add(countFromPreferences);
+        }
+
+    }
 
 
 }

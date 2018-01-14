@@ -9,14 +9,18 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.konrad.gotowanie.Activities.IngredientsArrayAdapter;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class IngredientsJSON extends AsyncTask<String,Integer,String> {
@@ -24,7 +28,7 @@ public class IngredientsJSON extends AsyncTask<String,Integer,String> {
     private ListView list;
 
     JSONArray products = null;
-    private ArrayList<String> prodArray;
+    private ArrayList<ArrayList<String>> productsArray;
 
     private SharedPreferences ingName;
     private SharedPreferences ingCount;
@@ -32,11 +36,11 @@ public class IngredientsJSON extends AsyncTask<String,Integer,String> {
     private static final String PREF_COUNT = "prefCount";
     private static final String TAG_PRODUCTS= "products";
     private static final String TAG_NAME= "name";
-    private static final String TAG_ID= "id";
+    private static final String TAG_COUNT= "count";
 
-    public IngredientsJSON(Context context, ArrayList<String> prodArray,ListView list) {
+    public IngredientsJSON(Context context, ArrayList<ArrayList<String>> productsArray,ListView list) {
         this.context = context;
-        this.prodArray=prodArray;
+        this.productsArray =productsArray;
         this.list=list;
     }
 
@@ -47,27 +51,34 @@ public class IngredientsJSON extends AsyncTask<String,Integer,String> {
     protected String doInBackground(String... arg0) {
         try{
             ParserJSON jParser = new ParserJSON();
+            String id = arg0[0];
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
             ingName = context.getSharedPreferences(PREF_NAME , Activity.MODE_PRIVATE);
             ingCount = context.getSharedPreferences(PREF_COUNT , Activity.MODE_PRIVATE);
 
-            String link = "http://46.242.178.181/gotowanie/list.php";
-            JSONObject json = jParser.makeHttpRequest(link, "GET", null);
+            String link = "http://46.242.178.181/gotowanie/fridge.php";
+            params.add(new BasicNameValuePair("id", id));
+            JSONObject json = jParser.makeHttpRequest(link, "GET", params);
             Log.d("Otrzymana tablica JSON:", json.toString());
             products = json.getJSONArray(TAG_PRODUCTS);
 
             SharedPreferences.Editor prefNameEditor = ingName.edit();
             SharedPreferences.Editor prefCountEditor = ingCount.edit();
 
+            productsArray.clear();
+            productsArray.add(new ArrayList<String>());
+            productsArray.add(new ArrayList<String>());
 
             for (int i = 0; i < products.length(); i++) {
                 JSONObject c = products.getJSONObject(i);
 
                 String name = c.getString(TAG_NAME);
-                String count = c.getString(TAG_ID);
+                String count = c.getString(TAG_COUNT);
                 prefNameEditor.putString(Integer.toString(i),name);
                 prefCountEditor.putString(Integer.toString(i),count);
 
-                prodArray.add(name);
+                productsArray.get(0).add(name);
+                productsArray.get(1).add(count);
             }
 
             prefNameEditor.commit();
@@ -81,7 +92,9 @@ public class IngredientsJSON extends AsyncTask<String,Integer,String> {
 
     @Override
     protected void onPostExecute(String result){
-
+        ArrayAdapter<String> adapter;
+        adapter = new IngredientsArrayAdapter((Activity)context,productsArray);
+        list.setAdapter(adapter);
     }
 
 }

@@ -16,17 +16,17 @@ import java.util.ArrayList;
 
 public class IngredientsArrayAdapter extends ArrayAdapter<String> {
     private Activity context;
-    private ArrayList<String> prodArray;
+    private ArrayList<ArrayList<String>> prodArray;
 
     private SharedPreferences ingName;
     private SharedPreferences ingPrefCount;
     private static final String PREF_NAME = "prefName";
     private static final String PREF_COUNT = "prefCount";
 
-    public IngredientsArrayAdapter(Activity context,String[] prodArray) {
-        super(context, R.layout.list_element,prodArray); //mozliwe ze tu
+    public IngredientsArrayAdapter(Activity context,ArrayList<ArrayList<String>> prodArray) {
+        super(context, R.layout.list_element,prodArray.get(0)); //mozliwe ze tu
         this.context = context;
-        //this.prodArray = prodArray;
+        this.prodArray = prodArray;
         ingName = this.context.getSharedPreferences(PREF_NAME , Activity.MODE_PRIVATE);
         ingPrefCount = this.context.getSharedPreferences(PREF_COUNT , Activity.MODE_PRIVATE);
     }
@@ -39,11 +39,8 @@ public class IngredientsArrayAdapter extends ArrayAdapter<String> {
         TextView ingList =  rowView.findViewById(R.id.tekstLista);
         TextView ingCount =  rowView.findViewById(R.id.tekstLiczba);
 
-        String textFromPreferences = ingName.getString(Integer.toString(position), "");
-        String idFromPreferences = ingPrefCount.getString(Integer.toString(position), "");
-
-        ingCount.setText(idFromPreferences);
-        ingList.setText(textFromPreferences);
+        ingList.setText(prodArray.get(0).get(position));
+        ingCount.setText(prodArray.get(1).get(position));
 
         return rowView;
     }

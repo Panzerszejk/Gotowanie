@@ -1,40 +1,33 @@
 package com.example.konrad.gotowanie.JSON;
 
 /**
- * Created by Konrad on 2018-01-07.
+ * Created by Konrad on 2018-01-14.
  */
-
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.TextView;
-
-import com.example.konrad.gotowanie.Activities.MainActivity;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.util.Log;
+
+import com.example.konrad.gotowanie.Activities.Logging;
+import com.example.konrad.gotowanie.Activities.MainActivity;
 
 
-
-public class LoggingJSON extends AsyncTask<String,Integer,String> {
-    private TextView statusField,roleField;
+public class LoginCheckJSON extends AsyncTask<String,Integer,String>{
     private Context context;
+    private boolean loginOk = false;
 
     private static final String TAG_PARAMS = "params";
-    private static final String TAG_CERROR = "connectionerror";
-    private static final String TAG_QERROR = "queryerror";
+    private static final String TAG_CERROR = "connectionError";
+    private static final String TAG_QERROR = "queryError";
     private static final String TAG_LOGGED = "logged";
 
-    private boolean loginOK = false;
-
-    public LoggingJSON(Context context) {
+    public LoginCheckJSON(Context context) {
         this.context = context;
     }
 
@@ -44,20 +37,18 @@ public class LoggingJSON extends AsyncTask<String,Integer,String> {
     @Override
     protected String doInBackground(String... arg0) {
         try{
-            String username = arg0[0];
-            String password = arg0[1];
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            ParserJSON jParser = new ParserJSON();
-            String link = "http://46.242.178.181/gotowanie/logging.php";
-            params.add(new BasicNameValuePair("login", username));
-            params.add(new BasicNameValuePair("password", password));
+            String id = arg0[0];
+            List<NameValuePair> params = new ArrayList<>();
+            ParserJSON jParser = new ParserJSON(context);
+            String link = "http://46.242.178.181/rejestr/loginCheck.php";
+            params.add(new BasicNameValuePair("id", id));
             JSONObject json = jParser.makeHttpRequest(link, "GET", params);
             Log.d("logs", json.toString());
             if (json.has(TAG_PARAMS)){
                 Log.d("tag_params","logowanie udane");
                 if(json.has(TAG_LOGGED)){
                     Log.d("tag_logged","login ok");
-                    loginOK = true;
+                    loginOk = true;
                 }
                 else{
                     Log.d("tag_logged","login nie ok");
@@ -79,15 +70,14 @@ public class LoggingJSON extends AsyncTask<String,Integer,String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        if (loginOK) {
+    protected void onPostExecute(String result){
+        if(loginOk){
             Intent intent = new Intent(context, MainActivity.class);
             context.startActivity(intent);
         }
         else{
-            //TODO: Informacja o błędnych danych logowania
-            SharedPreferences sharedPref = context.getSharedPreferences("cookies", Context.MODE_PRIVATE);
-            sharedPref.edit().clear().apply();
+            Intent intent = new Intent(context, Logging.class);
+            context.startActivity(intent);
         }
     }
 }
