@@ -12,7 +12,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.konrad.gotowanie.Activities.IngredientsArrayAdapter;
+import com.example.konrad.gotowanie.ArrayAdapters.IngredientsArrayAdapter;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -50,7 +50,7 @@ public class IngredientsJSON extends AsyncTask<String,Integer,String> {
     @Override
     protected String doInBackground(String... arg0) {
         try{
-            ParserJSON jParser = new ParserJSON();
+            ParserJSON jParser = new ParserJSON(context);
             String id = arg0[0];
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             ingName = context.getSharedPreferences(PREF_NAME , Activity.MODE_PRIVATE);

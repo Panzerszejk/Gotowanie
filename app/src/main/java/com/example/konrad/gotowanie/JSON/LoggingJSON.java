@@ -47,30 +47,30 @@ public class LoggingJSON extends AsyncTask<String,Integer,String> {
             String username = arg0[0];
             String password = arg0[1];
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            ParserJSON jParser = new ParserJSON();
+            ParserJSON jParser = new ParserJSON(context);
             String link = "http://46.242.178.181/gotowanie/logging.php";
             params.add(new BasicNameValuePair("login", username));
             params.add(new BasicNameValuePair("password", password));
             JSONObject json = jParser.makeHttpRequest(link, "GET", params);
             Log.d("logs", json.toString());
             if (json.has(TAG_PARAMS)){
-                Log.d("tag_params","logowanie udane");
+                Log.d("LoggingJSON","logowanie udane");
                 if(json.has(TAG_LOGGED)){
-                    Log.d("tag_logged","login ok");
+                    Log.d("LoggingJSON","login ok");
                     loginOK = true;
                 }
                 else{
-                    Log.d("tag_logged","login nie ok");
+                    Log.d("LoggingJSON","login nie ok");
                 }
                 if(json.has(TAG_CERROR)){
-                    Log.d("tag_cerror",json.getString(TAG_CERROR));
+                    Log.d("LoggingJSON",json.getString(TAG_CERROR));
                 }
                 if(json.has(TAG_QERROR)){
-                    Log.d("tag_querror",json.getString(TAG_QERROR));
+                    Log.d("LoggingJSON",json.getString(TAG_QERROR));
                 }
             }
             else{
-                Log.d("tag_params","logowanie nieudane");
+                Log.d("LoggingJSON","logowanie nieudane");
             }
             return json.toString();
         } catch(Exception e){

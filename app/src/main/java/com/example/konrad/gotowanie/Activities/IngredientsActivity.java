@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,12 +15,14 @@ import android.widget.ListView;
 import android.widget.ArrayAdapter;
 
 
+import com.example.konrad.gotowanie.ArrayAdapters.IngredientsArrayAdapter;
 import com.example.konrad.gotowanie.JSON.IngredientsJSON;
 import com.example.konrad.gotowanie.R;
 
-public class Ingredients extends AppCompatActivity {
+public class IngredientsActivity extends AppCompatActivity {
     private ListView list ;
     private ArrayList<ArrayList<String>> productsArray;
+    private String idFromCookie;
     private SharedPreferences ingPrefName;
     private SharedPreferences ingPrefCount;
     private static final String PREF_NAME = "prefName";
@@ -40,13 +43,21 @@ public class Ingredients extends AppCompatActivity {
 
         getSharedPrefValues();
 
+        SharedPreferences sharedPref = getSharedPreferences("cookies", Context.MODE_PRIVATE);
+        idFromCookie = sharedPref.getString("id", null);
+
+        if(idFromCookie==null)
+            Log.d("IngredientsActivity:","NULL");
+        else
+            Log.d("IngredientsActivity:",idFromCookie);
+
         ArrayAdapter<String> adapter;
         adapter = new IngredientsArrayAdapter(this,productsArray);
         list.setAdapter(adapter);
     }
 
     public void listIngredients(View view){
-        new IngredientsJSON(this,productsArray, list).execute("1"); //zamiast 1 to cookie z sesji
+        new IngredientsJSON(this,productsArray, list).execute(idFromCookie); //zamiast 1 to cookie z sesji
     }
 
     public void getSharedPrefValues(){

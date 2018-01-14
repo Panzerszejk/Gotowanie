@@ -14,7 +14,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.konrad.gotowanie.Activities.Logging;
+import com.example.konrad.gotowanie.Activities.LoggingActivity;
 import com.example.konrad.gotowanie.Activities.MainActivity;
 
 
@@ -40,28 +40,28 @@ public class LoginCheckJSON extends AsyncTask<String,Integer,String>{
             String id = arg0[0];
             List<NameValuePair> params = new ArrayList<>();
             ParserJSON jParser = new ParserJSON(context);
-            String link = "http://46.242.178.181/rejestr/loginCheck.php";
+            String link = "http://46.242.178.181/gotowanie/loginCheck.php";
             params.add(new BasicNameValuePair("id", id));
             JSONObject json = jParser.makeHttpRequest(link, "GET", params);
             Log.d("logs", json.toString());
             if (json.has(TAG_PARAMS)){
-                Log.d("tag_params","logowanie udane");
+                Log.d("LoginCheckJSON:","logowanie udane");
                 if(json.has(TAG_LOGGED)){
-                    Log.d("tag_logged","login ok");
+                    Log.d("LoginCheckJSON:","login ok");
                     loginOk = true;
                 }
                 else{
-                    Log.d("tag_logged","login nie ok");
+                    Log.d("LoginCheckJSON:","login nie ok");
                 }
                 if(json.has(TAG_CERROR)){
-                    Log.d("tag_cerror",json.getString(TAG_CERROR));
+                    Log.d("LoginCheckJSON:",json.getString(TAG_CERROR));
                 }
                 if(json.has(TAG_QERROR)){
-                    Log.d("tag_querror",json.getString(TAG_QERROR));
+                    Log.d("LoginCheckJSON:",json.getString(TAG_QERROR));
                 }
             }
             else{
-                Log.d("tag_params","logowanie nieudane");
+                Log.d("LoginCheckJSON:","logowanie nieudane");
             }
             return json.toString();
         } catch(Exception e){
@@ -76,7 +76,7 @@ public class LoginCheckJSON extends AsyncTask<String,Integer,String>{
             context.startActivity(intent);
         }
         else{
-            Intent intent = new Intent(context, Logging.class);
+            Intent intent = new Intent(context, LoggingActivity.class);
             context.startActivity(intent);
         }
     }

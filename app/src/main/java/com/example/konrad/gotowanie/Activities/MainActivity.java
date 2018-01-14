@@ -15,7 +15,7 @@ import com.example.konrad.gotowanie.R;
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton loggingButton,ingredientsButton;
-
+    String idFromCookie = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,24 +27,27 @@ public class MainActivity extends AppCompatActivity {
 
 
         SharedPreferences sharedPref = getSharedPreferences("cookies", Context.MODE_PRIVATE);
-        String idFromCookie = sharedPref.getString("id", "Brak cookie");
-        if(idFromCookie.equals("Brak cookie")){
-            Intent intent = new Intent(getApplicationContext(), Logging.class);
-            startActivity(intent);
-        }
-        else{
-            new LoginCheckJSON(this).execute(idFromCookie);
-        }
-        Log.d("Stan cookie", idFromCookie);
+        String idFromCookie = sharedPref.getString("id", null);
+        Log.d("MainActivity: Cookie:",idFromCookie);
     }
 
     public void openIngredients(View view){
-        Intent intent = new Intent(getApplicationContext(), Ingredients.class);
+        Intent intent = new Intent(getApplicationContext(), IngredientsActivity.class);
         startActivity(intent);
     }
 
     public void openLogin(View view){
-        Intent intent = new Intent(getApplicationContext(), Logging.class);
-        startActivity(intent);
+        Log.d("MainActivity: Przycisk:","Dupa");
+        if(idFromCookie == null){
+            Log.d("MainActivity: Przycisk:","Dupa if");
+            Intent intent = new Intent(getApplicationContext(), LoggingActivity.class);
+            Log.d("MainActivity: Przycisk:","Dupa if");
+            startActivity(intent);
+        }
+        else{
+            Log.d("MainActivity: Przycisk:","Dupa else");
+            new LoginCheckJSON(this).execute(idFromCookie);
+        }
+
     }
 }

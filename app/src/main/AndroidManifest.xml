@@ -19,9 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.Logging" />
+        <activity android:name=".Activities.LoggingActivity" />
         <activity
-            android:name=".Activities.Ingredients"
+            android:name=".Activities.IngredientsActivity"
             android:label="@string/title_activity_skladniki"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.Register"></activity>

@@ -29,7 +29,7 @@ public class Register extends AppCompatActivity {
         String password = passwordField.getText().toString();
         String email = emailField.getText().toString();
         //new LoggingJSON(this).execute(username,password);
-        Intent intent = new Intent(getApplicationContext(), Logging.class);
+        Intent intent = new Intent(getApplicationContext(), LoggingActivity.class);
         startActivity(intent);
     }
 

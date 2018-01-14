@@ -1,4 +1,4 @@
-package com.example.konrad.gotowanie.Activities;
+package com.example.konrad.gotowanie.ArrayAdapters;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
