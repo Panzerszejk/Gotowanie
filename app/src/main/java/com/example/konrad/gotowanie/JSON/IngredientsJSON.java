@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.konrad.gotowanie.ArrayAdapters.IngredientsArrayAdapter;
 
@@ -32,6 +33,7 @@ public class IngredientsJSON extends AsyncTask<String,Integer,String> {
 
     private SharedPreferences ingName;
     private SharedPreferences ingCount;
+    private String idFromCookie;
     private static final String PREF_NAME = "prefName";
     private static final String PREF_COUNT = "prefCount";
     private static final String TAG_PRODUCTS= "products";
@@ -65,25 +67,40 @@ public class IngredientsJSON extends AsyncTask<String,Integer,String> {
             SharedPreferences.Editor prefNameEditor = ingName.edit();
             SharedPreferences.Editor prefCountEditor = ingCount.edit();
 
-            productsArray.clear();
-            productsArray.add(new ArrayList<String>());
-            productsArray.add(new ArrayList<String>());
+            prefNameEditor.clear();
+            prefCountEditor.clear();
 
-            for (int i = 0; i < products.length(); i++) {
-                JSONObject c = products.getJSONObject(i);
+            SharedPreferences sharedPref = context.getSharedPreferences("cookies", Context.MODE_PRIVATE);
+            idFromCookie = sharedPref.getString("id", null);
 
-                String name = c.getString(TAG_NAME);
-                String count = c.getString(TAG_COUNT);
-                prefNameEditor.putString(Integer.toString(i),name);
-                prefCountEditor.putString(Integer.toString(i),count);
+            if(idFromCookie!=null) {
 
-                productsArray.get(0).add(name);
-                productsArray.get(1).add(count);
+                productsArray.clear();
+                productsArray.add(new ArrayList<String>());
+                productsArray.add(new ArrayList<String>());
+
+                prefNameEditor.putString("ID", idFromCookie);
+                prefCountEditor.putString("ID", idFromCookie);
+
+                for (int i = 0; i < products.length(); i++) {
+                    JSONObject c = products.getJSONObject(i);
+
+                    String name = c.getString(TAG_NAME);
+                    String count = c.getString(TAG_COUNT);
+                    prefNameEditor.putString(Integer.toString(i), name);
+                    prefCountEditor.putString(Integer.toString(i), count);
+
+                    productsArray.get(0).add(name);
+                    productsArray.get(1).add(count);
+                }
+
+                prefNameEditor.commit();
+                prefCountEditor.commit();
+            }else {
+            Log.d("IngredientsJSON","Cookie puste, Użytkownik nie zalogowany");
+                Toast notLogged = Toast.makeText(context, "Nie jestes zalogowany", Toast.LENGTH_SHORT);
+                notLogged.show();
             }
-
-            prefNameEditor.commit();
-            prefCountEditor.commit();
-
             return json.toString();
         } catch(Exception e){
             return new String("Exception: " + e.getMessage());

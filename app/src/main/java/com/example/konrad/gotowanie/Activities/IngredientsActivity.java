@@ -5,6 +5,7 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -32,8 +33,6 @@ public class IngredientsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skladniki);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         list = findViewById(R.id.lista);
 
@@ -41,15 +40,18 @@ public class IngredientsActivity extends AppCompatActivity {
         productsArray.add(new ArrayList<String>());
         productsArray.add(new ArrayList<String>());
 
-        getSharedPrefValues();
-
         SharedPreferences sharedPref = getSharedPreferences("cookies", Context.MODE_PRIVATE);
         idFromCookie = sharedPref.getString("id", null);
 
-        if(idFromCookie==null)
-            Log.d("IngredientsActivity:","NULL");
-        else
-            Log.d("IngredientsActivity:",idFromCookie);
+        if(idFromCookie==null) {
+            Log.d("IngredientsActivity:", "NULL");
+            Intent intent = new Intent(getApplicationContext(), LoggingActivity.class);
+            startActivity(intent);
+        }
+        else {
+            Log.d("IngredientsActivity:", idFromCookie);
+            getSharedPrefValues();
+        }
 
         ArrayAdapter<String> adapter;
         adapter = new IngredientsArrayAdapter(this,productsArray);
@@ -57,24 +59,32 @@ public class IngredientsActivity extends AppCompatActivity {
     }
 
     public void listIngredients(View view){
-        new IngredientsJSON(this,productsArray, list).execute(idFromCookie); //zamiast 1 to cookie z sesji
+        new IngredientsJSON(this,productsArray, list).execute(idFromCookie);
     }
 
     public void getSharedPrefValues(){
         ingPrefName = this.getSharedPreferences(PREF_NAME , Activity.MODE_PRIVATE);
         ingPrefCount = this.getSharedPreferences(PREF_COUNT , Activity.MODE_PRIVATE);
 
-        Map<String,?> nameMap = ingPrefName.getAll();
-        Map<String,?> countMap = ingPrefCount.getAll();
+        String checkIfNull = ingPrefName.getString("ID",null);
 
-        for(int i=0;i<nameMap.size();i++){
-            String textFromPreferences = (String)nameMap.get(Integer.toString(i));
-            String countFromPreferences = (String)countMap.get(Integer.toString(i));
+        if(checkIfNull != null) {
+            if(checkIfNull.equals(idFromCookie)){
 
-            productsArray.get(0).add(textFromPreferences);
-            productsArray.get(1).add(countFromPreferences);
-        }
+                Map<String, ?> nameMap = ingPrefName.getAll();
+                Map<String, ?> countMap = ingPrefCount.getAll();
 
+                for (int i = 0; i < nameMap.size()-1; i++) {
+                    String textFromPreferences = (String) nameMap.get(Integer.toString(i));
+                    String countFromPreferences = (String) countMap.get(Integer.toString(i));
+
+                    productsArray.get(0).add(textFromPreferences);
+                    productsArray.get(1).add(countFromPreferences);
+                }
+            }else
+                Log.d("IngredientsActivity:","getSharedPrefValues: cookie don't match");
+        }else
+            Log.d("IngredientsActivity:","getSharedPrefValues: cookie null");
     }
 
 

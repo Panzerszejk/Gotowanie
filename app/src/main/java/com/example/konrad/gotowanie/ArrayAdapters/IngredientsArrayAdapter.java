@@ -18,17 +18,10 @@ public class IngredientsArrayAdapter extends ArrayAdapter<String> {
     private Activity context;
     private ArrayList<ArrayList<String>> prodArray;
 
-    private SharedPreferences ingName;
-    private SharedPreferences ingPrefCount;
-    private static final String PREF_NAME = "prefName";
-    private static final String PREF_COUNT = "prefCount";
-
     public IngredientsArrayAdapter(Activity context,ArrayList<ArrayList<String>> prodArray) {
         super(context, R.layout.list_element,prodArray.get(0)); //mozliwe ze tu
         this.context = context;
         this.prodArray = prodArray;
-        ingName = this.context.getSharedPreferences(PREF_NAME , Activity.MODE_PRIVATE);
-        ingPrefCount = this.context.getSharedPreferences(PREF_COUNT , Activity.MODE_PRIVATE);
     }
 
     @Override

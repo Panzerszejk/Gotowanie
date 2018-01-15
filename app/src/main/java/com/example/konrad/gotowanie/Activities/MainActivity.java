@@ -37,15 +37,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openLogin(View view){
-        Log.d("MainActivity: Przycisk:","Dupa");
         if(idFromCookie == null){
-            Log.d("MainActivity: Przycisk:","Dupa if");
             Intent intent = new Intent(getApplicationContext(), LoggingActivity.class);
-            Log.d("MainActivity: Przycisk:","Dupa if");
             startActivity(intent);
         }
         else{
-            Log.d("MainActivity: Przycisk:","Dupa else");
             new LoginCheckJSON(this).execute(idFromCookie);
         }
 

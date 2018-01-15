@@ -85,7 +85,7 @@ public class LoggingJSON extends AsyncTask<String,Integer,String> {
             context.startActivity(intent);
         }
         else{
-            //TODO: Informacja o błędnych danych logowania
+            //TODO: Informacja o błędnych danych logowania.
             SharedPreferences sharedPref = context.getSharedPreferences("cookies", Context.MODE_PRIVATE);
             sharedPref.edit().clear().apply();
         }
