@@ -12,7 +12,7 @@ import com.example.konrad.gotowanie.JSON.RegisterCheckJSON;
 import com.example.konrad.gotowanie.JSON.RegisterJSON;
 import com.example.konrad.gotowanie.R;
 
-public class Register extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     private EditText loginField,passwordField,confirmField,emailField;
 
@@ -37,17 +37,17 @@ public class Register extends AppCompatActivity {
         if(username.length()<6||username.length()>20) {
             Toast toast = Toast.makeText(this, "Login powinien zawierać od 6 do 20 znaków", Toast.LENGTH_LONG);
             toast.show();
-            Log.d("Register","Dlugosc loginu");
+            Log.d("RegisterActivity","Dlugosc loginu");
         }else{
             if(password.length()<6||password.length()>20) {
                 Toast toast = Toast.makeText(this, "Haslo powininno zawierać od 6 do 20 znaków", Toast.LENGTH_LONG);
                 toast.show();
-                Log.d("Register","Dlugosc hasla");
+                Log.d("RegisterActivity","Dlugosc hasla");
             }else{
                 if(email.isEmpty()){
                     Toast toast = Toast.makeText(this, "Nie wpisano adresu e-mail", Toast.LENGTH_LONG);
                     toast.show();
-                    Log.d("Register",Integer.toString(username.length()));
+                    Log.d("RegisterActivity",Integer.toString(username.length()));
                 }else{
                     if(password.equals(confirm)) {
                         new RegisterCheckJSON(this).execute(username, password, email);

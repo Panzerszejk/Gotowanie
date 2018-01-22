@@ -45,7 +45,8 @@ public class LoggingJSON extends AsyncTask<String,Integer,String> {
     protected String doInBackground(String... arg0) {
         try{
             String username = arg0[0];
-            String password = arg0[1];
+            String password;
+            password = MD5(arg0[1]);
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             ParserJSON jParser = new ParserJSON(context);
             String link = "http://46.242.178.181/gotowanie/logging.php";
@@ -89,5 +90,19 @@ public class LoggingJSON extends AsyncTask<String,Integer,String> {
             SharedPreferences sharedPref = context.getSharedPreferences("cookies", Context.MODE_PRIVATE);
             sharedPref.edit().clear().apply();
         }
+    }
+
+    public String MD5(String md5) {
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            byte[] array = md.digest(md5.getBytes());
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < array.length; ++i) {
+                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
+            }
+            return sb.toString();
+        } catch (java.security.NoSuchAlgorithmException e) {
+        }
+        return null;
     }
 }

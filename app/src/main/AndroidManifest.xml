@@ -24,7 +24,9 @@
             android:name=".Activities.IngredientsActivity"
             android:label="@string/title_activity_skladniki"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.Register"></activity>
+        <activity android:name=".Activities.RegisterActivity" />
+        <activity android:name=".Activities.RecipeActivity" />
+        <activity android:name=".Activities.RecipeAddActivity"></activity>
     </application>
 
 </manifest>

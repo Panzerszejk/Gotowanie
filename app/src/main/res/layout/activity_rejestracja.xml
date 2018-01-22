@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.konrad.gotowanie.Activities.Register">
+    tools:context="com.example.konrad.gotowanie.Activities.RegisterActivity">
 
     <TextView
         android:id="@+id/TextLogin"
@@ -54,7 +54,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         app:layout_constraintStart_toEndOf="@+id/TextEmail"
         app:layout_constraintTop_toBottomOf="@+id/Confirm" />
 

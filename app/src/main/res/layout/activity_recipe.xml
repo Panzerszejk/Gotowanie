@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.konrad.gotowanie.Activities.RecipeActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context="com.example.konrad.gotowanie.Activities.RecipeActivity">
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/picture_frame" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Tytuł "
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Kategoria"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
+            <TextView
+                android:id="@+id/ingredientsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="31dp"
+                android:text="Składniki:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/category" />
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="103dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@android:color/darker_gray"
+                app:layout_constraintBottom_toTopOf="@+id/comments"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ingredientsTitle" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="255dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="128dp"
+                android:backgroundTint="@android:color/darker_gray"
+                android:text="Sos beszamelowy: Na patelni rozpuszczamy 4 łyżki masła, zdejmujemy z ognia i dosypujemy 4 łyżki mąki. Mieszamy aż powstanie gładka masa. Następnie dolewamy szklankę mleka, z powrotem wstawiamy na palnik i podgrzewamy do uzyskania jednolitej gęstej masy - ciągle mieszając.  Lazania: Na patelni podsmażamy mięso, dodajemy posiekane w kosteczkę cebule i czosnek. Gdy mięso będzie już rozdrobnione i podsmażone dodajemy pomidory z puszki i koncentrat pomidorowy, przyprawiamy do smaku solą, pieprzem, oregano i bazylią i chwilę dusimy. W osolonej wodzie z dodatkiem oliwy z oliwek podgotowujemy makaron ok 2-3 min, odcedzamy.  Naczynie żaroodporne smarujemy oliwą i układamy pierwszą warstwę makaronu. Makaron pokrywamy cienką warstwą beszamelu a na beszamelu układamy mięso. Przykrywamy makaronem i powtarzamy czynność. Ostatnia warstwa powinna się składać z beszamelu i mięsa. Całość posypujemy startym serem.  Pieczemy w piekarniku rozgrzanym do 180 stopni ok 20-30 minut. Potem wyłączamy piekarnik i lazanię pozostawiamy w nim jeszcze na ok. 20 min.  Smacznego! "
+                app:layout_constraintStart_toEndOf="@+id/listView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description" />
+
+            <TextView
+                android:id="@+id/commentsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="154dp"
+                android:layout_marginStart="154dp"
+                android:layout_marginTop="8dp"
+                android:text="Komentarze"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
+            <ListView
+                android:id="@+id/comments"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/commentsTitle">
+
+            </ListView>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
